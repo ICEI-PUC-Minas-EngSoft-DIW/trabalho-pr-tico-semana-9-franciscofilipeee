@@ -74,3 +74,38 @@ const data = {
     }
   ]
 }
+
+
+const productsContainer = document.getElementById('product-list');
+
+productsContainer.innerHTML = data.produtos.map(produto => `
+  <div class="product-card">
+    <img src="${produto.imagem}" alt="${produto.nome}" class="product-image">
+    <h3 class="product-name">${produto.nome}</h3>
+    <p class="product-price">R$ ${produto.preco.toFixed(2)}</p>
+    <p class="product-description">${produto.descricao}</p>
+    <button class="add-to-cart-btn" ${produto.emEstoque ? '' : 'disabled'}>Adicionar ao Carrinho</button>
+  </div>
+`).join('');
+
+function renderizar() {
+  productsContainer.innerHTML = '';
+
+  let texto = document.getElementById('search').value.toLowerCase();
+
+  const produtosFiltrados = data.produtos.filter(produto =>
+    produto.nome.toLowerCase().includes(texto) ||
+    produto.categoria.toLowerCase().includes(texto) ||
+    produto.descricao.toLowerCase().includes(texto)
+  );
+
+  productsContainer.innerHTML = produtosFiltrados.map(produto => `
+    <div class="product-card">
+      <img src="${produto.imagem}" alt="${produto.nome}" class="product-image">
+      <h3 class="product-name">${produto.nome}</h3>
+      <p class="product-price">R$ ${produto.preco.toFixed(2)}</p>
+      <p class="product-description">${produto.descricao}</p>
+      <button class="add-to-cart-btn" ${produto.emEstoque ? '' : 'disabled'}>Adicionar ao Carrinho</button>
+    </div>
+  `).join('');
+}
