@@ -92,11 +92,11 @@ function renderizar() {
   productsContainer.innerHTML = '';
 
   let texto = document.getElementById('search').value.toLowerCase();
+  let categoria = document.getElementById('category').value.toLowerCase();
 
   const produtosFiltrados = data.produtos.filter(produto =>
-    produto.nome.toLowerCase().includes(texto) ||
-    produto.categoria.toLowerCase().includes(texto) ||
-    produto.descricao.toLowerCase().includes(texto)
+    produto.nome.toLowerCase().includes(texto) &&
+    produto.categoria.toLowerCase().includes(categoria)
   );
 
   productsContainer.innerHTML = produtosFiltrados.map(produto => `
